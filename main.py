@@ -4,10 +4,10 @@ import numpy as np
 
 from cv2.typing import MatLike
 
-from colors import *
-from settings import *
+from src.colors import *
+from src.settings import *
 
-from persistence import load_parking_lots
+from src.persistence import load_parking_lots
 
 
 parking_lots = load_parking_lots()

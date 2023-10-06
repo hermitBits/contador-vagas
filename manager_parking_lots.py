@@ -1,10 +1,10 @@
 import cv2
 
-from colors import *
-from settings import *
+from src.colors import *
+from src.settings import *
 
-from classes_template import Rect
-from persistence import load_parking_lots, dump_parking_lots
+from src.classes_template import Rect
+from src.persistence import load_parking_lots, dump_parking_lots
 
 
 parking_lots = load_parking_lots()

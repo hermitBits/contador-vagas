@@ -1,6 +1,6 @@
 import json
 from typing import List
-from classes_template import Rect
+from src.classes_template import Rect
 
 
 def dump_parking_lots(parking_lots) -> None:
