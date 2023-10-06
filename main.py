@@ -1,17 +1,10 @@
+
 import cv2
 import numpy as np
 
+from gerenciador_vagas import load_vagas, width, height
 
-vagas = [
-    {'x': 1, 'y': 89, 'width': 108, 'height': 213},
-    {'x': 115, 'y': 87, 'width': 152, 'height': 211},
-    {'x': 289, 'y': 89, 'width': 138, 'height': 212},
-    {'x': 439, 'y': 87, 'width': 135, 'height': 212},
-    {'x': 591, 'y': 90, 'width': 132, 'height': 206},
-    {'x': 738, 'y': 93, 'width': 139, 'height': 204},
-    {'x': 881, 'y': 93, 'width': 138, 'height': 201},
-    {'x': 1027, 'y': 94, 'width': 147, 'height': 202}
-]
+vagas = load_vagas()
 
 video = cv2.VideoCapture('video.mp4')
 
@@ -62,10 +55,9 @@ while True:
     img_process = process_image(img)
     
     for vaga in vagas:
-        x, y, w, h = vaga['x'], vaga['y'], vaga['width'], vaga['height']
-        
         # isolar as vagas
-        recorte = img_process[y:y+h, x:x+w]
+        recorte = img_process[vaga.y:vaga.y+height, vaga.x:vaga.x+width]
+        
         # contar a quantidade de pixels brancos nelas
         qtd_pixels_brancos = cv2.countNonZero(recorte)
         
@@ -73,7 +65,7 @@ while True:
         cv2.putText(
             img=img, 
             text=f'{qtd_pixels_brancos}',
-            org=(x,y+h-10),
+            org=(vaga.x,vaga.y+height-10),
             fontFace=cv2.FONT_HERSHEY_SCRIPT_SIMPLEX,
             fontScale=0.5,
             color=WHITE,
@@ -82,11 +74,11 @@ while True:
         
         # desenhar retangulo nas vagas, as vaga que contém carro retangulo
         # vermelho e sem carro verde.
-        pt1, pt2 = (x, y), (x + w, y + h)
+        color = GREEN
         if qtd_pixels_brancos > 3000:
-            cv2.rectangle(img, pt1, pt2, RED, thickness=3)
-        else:
-            cv2.rectangle(img, pt1, pt2, GREEN, thickness=3)
+            color = RED
+            
+        cv2.rectangle(img, vaga.pt1, vaga.pt2, color, thickness=3)
     
     # exibe o video    
     cv2.imshow('video', img)
