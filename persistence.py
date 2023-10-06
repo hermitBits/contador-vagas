@@ -1,12 +1,15 @@
-import json 
+import json
+from typing import List
 from classes_template import Rect
 
-def dump_parking_lots(parking_lots):
+
+def dump_parking_lots(parking_lots) -> None:
     parking_lots_to_dict = [parking_space.to_dict() for parking_space in parking_lots]
     with open('vagas.json', 'w') as file:
         json.dump(parking_lots_to_dict, file)
         
-def load_parking_lots():
+        
+def load_parking_lots() -> List[Rect]:
     try:
         with open('vagas.json', 'r') as file:
             parking_lots_from_dict = json.load(file)

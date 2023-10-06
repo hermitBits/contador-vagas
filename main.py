@@ -2,6 +2,8 @@
 import cv2
 import numpy as np
 
+from cv2.typing import MatLike
+
 from colors import *
 from settings import *
 
@@ -9,11 +11,10 @@ from persistence import load_parking_lots
 
 
 parking_lots = load_parking_lots()
-
 video = cv2.VideoCapture('video.mp4')
 
 
-def process_image(img):
+def process_image(img) -> MatLike:
     img_grey = cv2.cvtColor(
         src=img,
         code=cv2.COLOR_BGR2GRAY

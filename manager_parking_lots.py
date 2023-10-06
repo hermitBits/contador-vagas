@@ -10,7 +10,7 @@ from persistence import load_parking_lots, dump_parking_lots
 parking_lots = load_parking_lots()
 
 
-def click_event(events, x, y, flags, params):
+def click_event(events, x, y, flags, params) -> None:
     if events == cv2.EVENT_LBUTTONDOWN:
         parking_space = Rect(x=x,y=y,width=x+WIDTH,height=y+HEIGHT)
         parking_lots.append(parking_space)
